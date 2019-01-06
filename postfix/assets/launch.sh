@@ -6,7 +6,6 @@ DPATH_SELF=$( cd $(dirname "$0") && pwd )
 . ${DPATH_SELF}/functions
 . ${DPATH_SELF}/mailbond.conf
 
-VMBOX_BASE=/var/mail
 FPATH_VMBOX_MAPS=/etc/postfix/vmailbox
 FPATH_MAILACCOUNT=${DPATH_SELF}/mailaccounts
 USER_VMBOX=vmail
