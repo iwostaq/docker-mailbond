@@ -20,6 +20,21 @@ services:
       - *vol-localtime
     networks:
       - mailbond-bridge
+  dovecot:
+    build:
+      context: ./
+      dockerfile: ./dovecot/Dockerfile
+    image: mailbond-dovecot:01
+    container_name: mailbond-dovecot
+    volumes:
+      - type: volume
+        source: mailbox
+        target: /var/mail
+      - *vol-localtime
+    networks:
+      - mailbond-bridge
+    depends_on:
+      - postfix
 networks:
   mailbond-bridge:
     driver: bridge
