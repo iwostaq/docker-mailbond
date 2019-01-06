@@ -1,0 +1,16 @@
+# shell functions shared among Dockerfiles
+
+check_envvars() {
+  while read v; do
+    eval ": \${${v}:?${v} is not defined}"
+  done
+}
+
+replace_envvars() {
+  fpath=${1:-/dev/stdin}
+  cat $fpath | while read line; do
+    eval "echo \"$line\""
+  done
+}
+
+return 0

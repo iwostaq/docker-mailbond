@@ -1,0 +1,27 @@
+
+version: '3.7'
+x-volumes:
+  &vol-localtime
+  type: bind
+  source: /etc/localtime
+  target: /etc/localtime
+  read_only: true
+services:
+  postfix:
+    build:
+      context: ./
+      dockerfile: ./postfix/Dockerfile
+    image: mailbond-postfix:01
+    container_name: mailbond-postfix
+    volumes:
+      - type: volume
+        source: mailbox
+        target: /var/mail
+      - *vol-localtime
+    networks:
+      - mailbond-bridge
+networks:
+  mailbond-bridge:
+    driver: bridge
+volumes:
+  mailbox:
