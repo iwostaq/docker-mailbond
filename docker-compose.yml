@@ -35,6 +35,25 @@ services:
       - mailbond-bridge
     depends_on:
       - postfix
+  cypht:
+    image: sailfrog/cypht-docker:latest
+    container_name: mailbond-cypht
+    volumes:
+      - *vol-localtime
+    networks:
+      - mailbond-bridge
+    environment:
+      - CYPHT_SESSION_TYPE=php
+      - CYPHT_AUTH_TYPE=IMAP
+      - CYPHT_IMAP_AUTH_SERVER=dovecot
+      - CYPHT_DEFAULT_SMTP_SERVER=postfix
+      - CYPHT_USER_CONFIG_TYPE=file
+      - CYPHT_USER_SETTINGS_DIR=/var/lib/hm3/users
+      - CYPHT_APP_DATA_DIR=/var/lib/hm3/app_data
+    ports:
+      - "80:80"
+    depends_on:
+      - dovecot
 networks:
   mailbond-bridge:
     driver: bridge
